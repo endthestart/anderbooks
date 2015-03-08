@@ -1,0 +1,13 @@
+---
+
+# Database settings.
+db_user: "{{ application_name }}"
+db_name: "{{ application_name }}"
+db_password: password
+
+# Application settings.
+django_settings_file: settings.local
+django_secret_key: abcd1234
+
+run_django_migrate: yes
+run_django_collectstatic: yes
