@@ -1,7 +1,8 @@
 ---
 
 # Application Settings
-project_path: "/srv/www/{{ application_name }}"
+project_path: "/srv/www/{{ project_name }}"
+application_path: "{{ project_path }}/{{ application_name }}"
 virtualenv_path: "{{ project_path }}/venv"
 application_log_dir: "{{ project_path }}/logs"
 application_log_file: "{{ application_log_dir }}/gunicorn.log"
