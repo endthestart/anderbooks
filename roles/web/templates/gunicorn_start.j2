@@ -16,10 +16,10 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment.
 cd $DJANGODIR
-. ../../bin/activate
+. ../venv/bin/activate
 
 # Set additional environment variables.
-. ../../bin/postactivate
+. ../venv/bin/postactivate
 
 # Create the run directory if it doesn't exist.
 RUNDIR=$(dirname $SOCKFILE)
