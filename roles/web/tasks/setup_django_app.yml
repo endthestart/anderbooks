@@ -1,0 +1,24 @@
+---
+
+- name: Install packages into virtualenv
+  pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
+
+- name: Sync database
+  django_manage:
+    command: migrate
+    app_path: "{{ application_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+    settings: "{{ django_settings_file }}"
+  environment: django_environment
+  when: run_django_migrate
+  tags: django.migrate
+
+- name: Collectstatic
+  django_manage:
+    command: collectstatic
+    app_path: "{{ application_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+    settings: "{{ django_settings_file }}"
+  environment: django_environment
+  when: run_django_collectstatic
+  tags: django.collectstatic
