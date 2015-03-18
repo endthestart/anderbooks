@@ -9,7 +9,7 @@
 - include: setup_django_app.yml
 
 - include: setup_gunicorn.yml
-#
-#- include: set_file_permissions.yml
-#
-#- include: setup_nginx.yml
+
+- include: set_file_permissions.yml
+
+- include: setup_nginx.yml

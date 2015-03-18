@@ -1,0 +1,30 @@
+upstream wsgi_server {
+    server unix:{{ project_path }}/run/gunicorn.sock fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name {{ nginx_server_name }};
+    access_log {{ nginx_access_log_file }};
+    error_log {{  nginx_error_log_file }};
+
+    location /static/ {
+        alias {{ nginx_static_dir }};
+    }
+
+    location /media/ {
+        alias {{ nginx_media_dir }};
+    }
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto http;
+        proxy_set_header Host $http_host
+        proxy_redirect off;
+
+        if (!-f $request_filename) {
+            proxy_pass http://wsgi_server;
+            break;
+        }
+
+    }
