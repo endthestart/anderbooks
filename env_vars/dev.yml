@@ -5,7 +5,7 @@ db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
 
 # Application settings.
-django_settings_file: "{{ application_name }}".settings.staging
+django_settings_file: "{{ application_name }}.settings.staging"
 django_secret_key: abcd1234
 
 run_django_migrate: yes
