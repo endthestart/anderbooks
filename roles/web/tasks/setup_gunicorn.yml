@@ -1,0 +1,9 @@
+---
+
+- name: Create the init script
+  template: src=gunicorn_init.j2
+            dest=/etc/init/{{ application_name }}.conf
+            backup=yes
+
+- name: Restart Service
+  service: name={{ application_name }} state=started

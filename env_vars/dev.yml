@@ -4,6 +4,13 @@
 db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
 
+# Gunicorn settings
+gunicorn_num_workers: 3
+gunicorn_max_requests: 0
+
+# Nginx Settings
+nginx_server_name: "{{ inventory_hostname }}"
+
 # Application settings.
 django_settings_file: "{{ application_name }}.settings.staging"
 django_secret_key: abcd1234

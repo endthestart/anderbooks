@@ -22,7 +22,7 @@ nginx_media_dir: "{{ project_path }}/media/"
 
 # Django Environment Variables
 django_environment:
-  DJANGO_SETTINGS_MODULE: "{{ application_name }}.settings.staging"
+  DJANGO_SETTINGS_MODULE: "{{ django_settings_file }}"
   SECRET_KEY: "{{ django_secret_key }}"
   STRIPE_PUBLIC_KEY: "{{ stripe_public_key }}"
   STRIPE_SECRET_KEY: "{{ stripe_secret_key }}"
