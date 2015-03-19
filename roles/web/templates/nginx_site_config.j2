@@ -4,7 +4,21 @@ upstream wsgi_server {
 
 server {
     listen 80;
+    server_name {{ nginx_server_name }}
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
     server_name {{ nginx_server_name }};
+
+    ssl on;
+    ssl_certificate /etc/ssl/{{ application_name }}.crt;
+    ssl_certificate_key /etc/ssl/{{ application_name }}.key;
+
+    charset utf-8;
+    client_max_body_size 4G;
+
     access_log {{ nginx_access_log_file }};
     error_log {{  nginx_error_log_file }};
 
@@ -14,6 +28,7 @@ server {
 
     location /media/ {
         alias {{ nginx_media_dir }};
+        autoindex on;
     }
 
     location / {
