@@ -1,6 +1,6 @@
 ---
 - name: Provision a {{ application_name }} server
-  hosts: virtualmachines
+  hosts: production
   sudo: yes
   sudo_user: root
   remote_user: andermic
@@ -9,8 +9,7 @@
     - update_apt_cache: yes
   vars_files:
     - env_vars/base.yml
-    - env_vars/dev.yml
-    - env_vars/secure.yml
+    - env_vars/production.yml
   roles:
     - base
     - db
