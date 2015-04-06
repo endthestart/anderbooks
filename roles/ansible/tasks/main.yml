@@ -1,0 +1,12 @@
+# 1. Install Ansible
+# 2. Configure /etc/hosts
+# 3. Configure ssh keys
+# 4.
+
+
+
+# sudo yum install ansible
+# $ sudo apt-get install software-properties-common
+# $ sudo apt-add-repository ppa:ansible/ansible
+# $ sudo apt-get update
+# $ sudo apt-get install ansible
