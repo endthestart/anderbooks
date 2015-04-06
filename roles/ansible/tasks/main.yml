@@ -1,26 +1,48 @@
-# 1. Install Ansible
 # 2. Configure /etc/hosts
 # 3. Configure ssh keys
-# 4.
-
-
-
-# sudo yum install ansible
-# $ sudo apt-get install software-properties-common
-# $ sudo apt-add-repository ppa:ansible/ansible
-# $ sudo apt-get update
-# $ sudo apt-get install ansible
-
 ---
-# Configures an Ansible host
 
+# -----
+# Dependencies
+# -----
+
+#dependencies:
+#  - { role: base }
+
+# -----
 # Prerequisites
+# -----
 
 - name: Unsupported package manager
   fail: msg='This playbook requites either yum or apt.'
   when: ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'apt'
   
+- name: Install software-properties-common (apt)
+  apt: name={{ item }} state=present upgrade_cache=true
+  with_items:
+    - software-properties-common
+  when: ansible_pkg_mgr == 'apt'
   
+# -----
+# Package Managers
+# -----
+
+# yum
+- name: Configure epel repo (yum)
+  template: src=epel.repo.j2
+        dest=/etc/yum.repos.d/epel.repo
+        owner=root group=root mode=0644
+  when: ansible_pkg_mgr == 'yum'
+  
+# apt
+- name: configure ansible repo (apt)
+  apt_repository: repo=ppa:ansible/ansible
+  when: ansible_pkg_mgr == 'apt'
+
+# -----
+# Ansible
+# -----
+
 - name: Install Ansible (yum)
   yum: name={{ item }} state=present
   with_items:
