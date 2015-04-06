@@ -10,3 +10,25 @@
 # $ sudo apt-add-repository ppa:ansible/ansible
 # $ sudo apt-get update
 # $ sudo apt-get install ansible
+
+---
+# Configures an Ansible host
+
+# Prerequisites
+
+- name: Unsupported package manager
+  fail: msg='This playbook requites either yum or apt.'
+  when: ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'apt'
+  
+  
+- name: Install Ansible (yum)
+  yum: name={{ item }} state=present
+  with_items:
+    - ansible
+  when: ansible_pkg_mgr == 'yum'
+  
+- name: Install Ansible (apt)
+  apt: name={{ item }} state=present upgrade_cache=true
+  with_items:
+    - ansible
+  when: ansible_pkg_mgr == 'apt'
