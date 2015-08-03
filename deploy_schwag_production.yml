@@ -1,0 +1,8 @@
+---
+- name: Provision the {{ application_name }} web server
+  hosts: schwag_site
+  remote_user: root
+  roles:
+    - base
+    - db
+    - web

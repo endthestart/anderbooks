@@ -1,39 +1,44 @@
 ---
-
 - name: Create the virtualenv
-  command: virtualenv {{ virtualenv_path }} --no-site-packages
-    creates={{ virtualenv_path }}/bin/activate
+  command: "virtualenv {{ virtualenv_path }} --no-site-packages"
+  args:
+    creates: "{{ virtualenv_path }}/bin/activate"
 
 - name: Create the application log folder
-  file: path={{ application_log_dir }}
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
-        mode=0774
-        state=directory
+  file:
+    path: "{{ application_log_dir }}"
+    owner: "{{ gunicorn_user }}"
+    group: "{{ gunicorn_group }}"
+    mode: 0774
+    state: directory
 
 - name: Create Gunicorn start script
-  template: src=gunicorn_start.j2
-            dest={{ virtualenv_path }}/bin/gunicorn_start
-            owner={{ gunicorn_user }}
-            group={{ gunicorn_group }}
-            mode=0755
-            backup=yes
+  template:
+    src: gunicorn_start.j2
+    dest: "{{ virtualenv_path }}/bin/gunicorn_start"
+    owner: "{{ gunicorn_user }}"
+    group: "{{ gunicorn_group }}"
+    mode: 0755
+    backup: yes
 
 - name: Create the application log file
-  command: touch {{ application_log_file }}
-    creates={{ application_log_file }}
+  command: "touch {{ application_log_file }}"
+  args:
+    creates: "{{ application_log_file }}"
 
 - name: Create virtualenv postactivate script for env variables
-  template: src=virtualenv_postactivate.j2
-            dest={{ virtualenv_path }}/bin/postactivate
-            owner={{ gunicorn_user }}
-            group={{ gunicorn_group }}
-            mode=0640
-            backup=yes
+  template:
+    src: virtualenv_postactivate.j2
+    dest: "{{ virtualenv_path }}/bin/postactivate"
+    owner: "{{ gunicorn_user }}"
+    group: "{{ gunicorn_group }}"
+    mode: 0640
+    backup: yes
 
 - name: Set permissions on application log file
-  file: path={{ application_log_file }}
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
-        mode=0664
-        state=file
+  file:
+    path: "{{ application_log_file }}"
+    owner: "{{ gunicorn_user }}"
+    group: "{{ gunicorn_group }}"
+    mode: 0664
+    state: file

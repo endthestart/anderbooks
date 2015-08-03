@@ -1,7 +1,9 @@
 ---
-
 - name: Ensure bash, OpenSSL, and libssl are the latest versions
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
+  apt:
+    name: "{{ item }}"
+    update_cache: "{{ update_apt_cache }}"
+    state: latest
   with_items:
     - bash
     - openssl
@@ -10,7 +12,11 @@
   tags: packages
 
 - name: Install base packages
-  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  apt:
+    name: "{{ item }}"
+    update_cache: "{{ update_apt_cache }}"
+    force: yes
+    state: present
   with_items:
     - build-essential
     - ntp
@@ -24,5 +30,6 @@
   tags: packages
 
 - name: Install virtualenv
-  pip: name=virtualenv
+  pip:
+    name: virtualenv
   tags: packages

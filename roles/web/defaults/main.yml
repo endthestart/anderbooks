@@ -1,5 +1,4 @@
 ---
-
 # Application Settings
 project_path: "/srv/www/{{ project_name }}"
 application_path: "{{ project_path }}/{{ application_name }}"
