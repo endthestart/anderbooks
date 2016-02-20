@@ -1,0 +1,43 @@
+---
+- name: Install depending for rabbitmq
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - erlang-nox
+
+- name: Install rabbitmq-server
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - rabbitmq-server
+
+- name: Ensure rabbitmq has selected state and enabled on boot.
+  service:
+    name: "rabbitmq-server"
+    state: "started"
+    enabled: yes
+
+- name: Create RabbitMQ vhosts
+  rabbitmq_vhost:
+    name: "/{{ item }}"
+    state: present
+  with_items: rabbitmq_vhosts
+  when: rabbitmq_vhosts is defined
+  notify:
+    - restart rabbitmq-server
+
+- name: Create RabbitMQ users
+  rabbitmq_user:
+    user: "{{ item.username }}"
+    password: "{{ item.password }}"
+    vhost: "/{{ item.vhost }}"
+    configure_priv: "{{ item.configure_priv }}"
+    read_priv: "{{ item.read_priv }}"
+    write_priv: "{{ item.write_priv }}"
+    state: present
+  with_items: rabbitmq_users
+  when: rabbitmq_users is defined
+  notify:
+    - restart rabbitmq-server

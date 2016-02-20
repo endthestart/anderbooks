@@ -4,36 +4,32 @@ upstream wsgi_server {
 
 server {
     listen 80;
-    server_name www.{{ nginx_server_name }} {{ nginx_server_name }};
-    return 301 https://www.{{ nginx_server_name }}$request_uri;
+    server_name {{ nginx_server_name }};
+    return 301 http://www.{{ nginx_server_name }}$request_uri;
 }
 
-server {
-    listen 443 ssl;
-    server_name www.{{ nginx_server_name }};
 
-    ssl on;
-    ssl_certificate /etc/ssl/{{ application_name }}.crt;
-    ssl_certificate_key /etc/ssl/{{ application_name }}.key;
+server {
+    listen 80;
+    server_name www.{{ nginx_server_name }};
 
     charset utf-8;
     client_max_body_size 4G;
 
-    access_log {{ nginx_access_log_file }};
-    error_log {{  nginx_error_log_file }};
+    access_log /srv/www/senexcycles.com/logs/nginx_access.log;
+    error_log /srv/www/senexcycles.com/logs/nginx_error.log;
 
     location /static/ {
-        alias {{ nginx_static_dir }};
+        alias /srv/www/senexcycles.com/senex_cart/static/;
     }
 
     location /media/ {
-        alias {{ nginx_media_dir }};
+        alias /srv/www/senexcycles.com/senex_cart/media/;
         autoindex on;
     }
 
     location / {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header Host $http_host;
         proxy_redirect off;
 

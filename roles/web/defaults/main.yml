@@ -5,7 +5,7 @@ application_path: "{{ project_path }}/{{ application_name }}"
 virtualenv_path: "{{ project_path }}/venv"
 application_log_dir: "{{ project_path }}/logs"
 application_log_file: "{{ application_log_dir }}/gunicorn.log"
-requirements_file: "{{ project_path }}/requirements/production.txt"
+requirements_file: "{{ project_path }}/requirements.txt"
 
 # Gunicorn Settings
 gunicorn_user: "{{ application_name }}"

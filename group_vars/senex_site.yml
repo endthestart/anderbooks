@@ -1,8 +1,8 @@
 ---
-git_repo: https://github.com/endthestart/senex
+git_repo: https://github.com/endthestart/senex_cart.git
 
 project_name: senexcycles.com
-application_name: senex
+application_name: senex_cart
 
 ssl_dest_dir: /etc/ssl
 

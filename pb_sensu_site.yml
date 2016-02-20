@@ -1,0 +1,2 @@
+---
+- include: pb_sensu_server.yml

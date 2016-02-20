@@ -1,0 +1,7 @@
+---
+- hosts: sensu
+  remote_user: root
+  roles:
+    - rabbitmq
+    - redis
+    - sensu

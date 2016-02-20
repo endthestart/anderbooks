@@ -1,0 +1,14 @@
+---
+- name: Install Redis
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - redis-server
+
+- name: Ensure Redis has selected state and enabled on boot.
+  service:
+    name: "redis-server"
+    state: "started"
+    enabled: yes
+

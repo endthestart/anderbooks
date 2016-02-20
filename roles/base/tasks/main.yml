@@ -24,6 +24,7 @@
     - git
     - vim
     - python-dev
+    - python-setuptools
     - python-pip
     - python-pycurl
     - supervisor
@@ -33,3 +34,20 @@
   pip:
     name: virtualenv
   tags: packages
+
+- name: Install Pillow requirements
+  apt:
+    name: "{{ item }}"
+    update_cache: "{{ update_apt_cache }}"
+    force: yes
+    state: present
+  with_items:
+    - libtiff5-dev
+    - libjpeg8-dev
+    - zlib1g-dev
+    - libfreetype6-dev
+    - liblcms2-dev
+    - libwebp-dev
+    - tcl8.6-dev
+    - tk8.6-dev
+    - python-tk

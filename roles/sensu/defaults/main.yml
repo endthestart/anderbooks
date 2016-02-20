@@ -1,0 +1,7 @@
+---
+sensu_vhost: sensu
+sensu_user: sensu
+sensu_password: secret
+sensu_server: false
+sensu_client: false
+sensu_server_hostname: 10.33.33.200
