@@ -1,0 +1,5 @@
+[sensu_client]
+104.236.232.221
+
+[sensu:children]
+sensu_client

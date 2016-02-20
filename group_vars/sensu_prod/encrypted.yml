@@ -1,0 +1,3 @@
+---
+rabbitmq_password_encrypted: testing
+sensu_password_encrypted: testing

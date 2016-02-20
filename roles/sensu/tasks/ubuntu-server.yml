@@ -1,0 +1,42 @@
+---
+- name: copy the handlers files
+  copy:
+    src: "sensu/handlers/"
+    dest: "/etc/sensu/handlers/"
+    owner: "{{ sensu_user }}"
+    group: "{{ sensu_group }}"
+    mode: 0750
+
+- name: Copy Sensu plugins files
+  copy:
+    src: "sensu/plugins/"
+    dest: "/etc/sensu/plugins/"
+    owner: "{{ sensu_user }}"
+    group: "{{ sensu_group }}"
+    mode: 0750
+  notify:
+    - restart sensu server
+
+- name: Generate Sensu config files
+  template:
+    src: "{{ item }}.json.j2"
+    dest: "/etc/sensu/conf.d/{{ item }}.json"
+    owner: "{{ sensu_user }}"
+    group: "{{ sensu_group }}"
+    mode: 0640
+  with_items:
+    - handlers
+    - redis
+    - api
+    - checks
+  notify:
+    - restart sensu server
+
+- name: Start sensu-{server,api} and make it survive a reboot
+  service:
+    name: "sensu-{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - server
+    - api

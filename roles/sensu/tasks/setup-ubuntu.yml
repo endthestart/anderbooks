@@ -1,0 +1,20 @@
+---
+
+- include: ubuntu-common.yml
+
+- include: ubuntu-server.yml
+  when: sensu_server
+
+- include: ubuntu-client.yml
+  when: sensu_client
+
+- include: ubuntu-uchiwa.yml
+  when: sensu_uchiwa
+
+- name: Ensure permissions on configuration
+  file:
+    path: /etc/sensu
+    recurse: yes
+    owner: "{{ sensu_user }}"
+    group: "{{ sensu_group }}"
+    state: directory

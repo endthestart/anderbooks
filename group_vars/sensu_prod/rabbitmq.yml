@@ -1,0 +1,8 @@
+---
+rabbitmq_password: "{{ rabbitmq_password_encrypted }}"
+
+rabbitmq_vhosts:
+  - sensu
+
+rabbitmq_users:
+  - { username: sensu, password: "{{ sensu_password }}", vhost: sensu, configure_priv: .*, read_priv: .*, write_priv: .* }

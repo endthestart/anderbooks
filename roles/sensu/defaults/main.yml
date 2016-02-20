@@ -1,7 +1,50 @@
 ---
+sensu_server: false
+sensu_client: true
+sensu_uchiwa: false
+sensu_server_hostname: []
+
 sensu_vhost: sensu
 sensu_user: sensu
+sensu_group: sensu
 sensu_password: secret
-sensu_server: false
-sensu_client: false
-sensu_server_hostname: 10.33.33.200
+
+sensu_settings: {}
+
+sensu_embedded_ruby: true
+
+# Sensu Certificates
+#sensu_cert_dir:       files
+#sensu_cert_file_name: sensu_client_cert.pem
+#sensu_key_file_name:  sensu_client_key.pem
+
+# Sensu client variable
+sensu_client_hostname:           "{{ ansible_hostname }}"
+sensu_client_address:            "{{ ansible_default_ipv4.address }}"
+sensu_client_subscription_names: [test]
+
+# Sensu Server variable
+sensu_server_redis_host: 127.0.0.1
+
+sensu_server_api_host:     127.0.0.1
+sensu_server_api_port:     4567
+sensu_server_api_user:     "sensu"
+sensu_server_api_password: "placeholder"
+
+sensu_server_rabbitmq_vhost:    "sensu"
+sensu_server_rabbitmq_hostname: 127.0.0.1
+sensu_server_rabbitmq_port:     5671
+sensu_server_rabbitmq_insecure: true
+sensu_server_rabbitmq_user:     "{{ sensu_user }}"
+sensu_server_rabbitmq_password: "{{ sensu_password }}"
+
+sensu_server_dashboard_host:     0.0.0.0
+sensu_server_dashboard_port:     3000
+sensu_server_dashboard_user:     "uchiwa"
+sensu_server_dashboard_password: "placeholder"
+sensu_server_dashboard_refresh:  5
+
+sensu_checks:   []
+sensu_handlers: []
+
+sensu_server_patch_init_scripts: true

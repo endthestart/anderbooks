@@ -1,0 +1,6 @@
+---
+sensu_password: "{{ sensu_password_encrypted }}"
+sensu_client_subscription_names:
+  - ALL
+
+sensu_server_rabbitmq_hostname: "159.203.111.105"

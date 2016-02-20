@@ -1,0 +1,35 @@
+---
+- name: Install Sensu GPG public key
+  apt_key:
+    url: "http://repositories.sensuapp.org/apt/pubkey.gpg"
+    state: present
+
+- name: Install Sensu repository
+  template:
+    src: "sensu.list.j2"
+    dest: "/etc/apt/sources.list.d/sensu.list"
+    owner: root
+    group: root
+    mode: 0644
+  register: sensu_apt_repo
+
+- name: Refresh apt cache
+  apt:
+    update_cache: yes
+  when: sensu_apt_repo.changed
+
+- name: Install Sensu
+  apt:
+    name: sensu
+    state: present
+
+- name: Copy Sensu rabbitmq config template
+  template:
+    src: "rabbitmq.json.j2"
+    dest: "/etc/sensu/conf.d/rabbitmq.json"
+    owner: "{{ sensu_user }}"
+    group: "{{ sensu_group }}"
+    mode: 0644
+  notify:
+    - restart sensu server
+    - restart sensu client

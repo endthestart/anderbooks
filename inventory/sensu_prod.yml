@@ -1,0 +1,5 @@
+[sensu_prod]
+159.203.111.105
+
+[sensu:children]
+sensu_prod

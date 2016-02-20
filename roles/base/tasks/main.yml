@@ -27,27 +27,29 @@
     - python-setuptools
     - python-pip
     - python-pycurl
-    - supervisor
+    # - supervisor
   tags: packages
 
-- name: Install virtualenv
-  pip:
-    name: virtualenv
-  tags: packages
+# TODO: Move this to a relevant section
+#- name: Install virtualenv
+#  pip:
+#    name: virtualenv
+#  tags: packages
 
-- name: Install Pillow requirements
-  apt:
-    name: "{{ item }}"
-    update_cache: "{{ update_apt_cache }}"
-    force: yes
-    state: present
-  with_items:
-    - libtiff5-dev
-    - libjpeg8-dev
-    - zlib1g-dev
-    - libfreetype6-dev
-    - liblcms2-dev
-    - libwebp-dev
-    - tcl8.6-dev
-    - tk8.6-dev
-    - python-tk
+# TODO: Move this to a relevant section
+#- name: Install Pillow requirements
+#  apt:
+#    name: "{{ item }}"
+#    update_cache: "{{ update_apt_cache }}"
+#    force: yes
+#    state: present
+#  with_items:
+#    - libtiff5-dev
+#    - libjpeg8-dev
+#    - zlib1g-dev
+#    - libfreetype6-dev
+#    - liblcms2-dev
+#    - libwebp-dev
+#    - tcl8.6-dev
+#    - tk8.6-dev
+#    - python-tk

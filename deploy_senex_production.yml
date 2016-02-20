@@ -1,8 +1,0 @@
----
-- name: Provision a {{ application_name }} web server
-  hosts: senex_site
-  remote_user: root
-  roles:
-    - base
-    - db
-    - web

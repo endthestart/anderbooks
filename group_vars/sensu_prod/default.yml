@@ -1,0 +1,5 @@
+---
+hostname: sensu-server-01
+fqdn: "{{ hostname }}.senexhosting.net"
+
+update_apt_cache: yes

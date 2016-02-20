@@ -1,0 +1,20 @@
+---
+sensu_password: "{{ sensu_password_encrypted }}"
+sensu_server: true
+sensu_uchiwa: true
+
+sensu_checks:
+  test_check:
+    handler    : default
+    command    : "/bin/sh echo Hello World"
+    interval   : 60
+    subscribers:
+      - ALL
+
+sensu_handlers:
+  test_handler:
+    type   : pipe
+    command: "echo"
+
+sensu_client_subscription_names:
+  - ALL

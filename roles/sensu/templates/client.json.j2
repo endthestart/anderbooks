@@ -1,9 +1,7 @@
 {
   "client": {
-    "name": "{{ ansible_hostname }}",
-    "address": "{{ ansible_fqdn }}",
-    "subscriptions": [
-      "test"
-    ]
+    "name": "{{ hostname }}",
+    "address": "{{ fqdn }}",
+    "subscriptions": [ "{{ "\",\"".join(sensu_client_subscription_names) }}" ]
   }
 }
